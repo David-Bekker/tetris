@@ -125,7 +125,7 @@ void lockShape(int board[ROWS][COLS], struct shape s, int pr, int pc) {
     placeShape(board, s, pr, pc);
 }
 
-void clear_screen() {
+/*void clear_screen() {
     COORD topLeft = { 0,0 };
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD written;
@@ -135,6 +135,11 @@ void clear_screen() {
     FillConsoleOutputAttribute(console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
         screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
     SetConsoleCursorPosition(console, topLeft);
+}*/
+
+void resetCursor() {
+    COORD topLeft = { 0,0 };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), topLeft);
 }
 
 void copyBoard(int src[ROWS][COLS], int dst[ROWS][COLS]) {
@@ -183,7 +188,8 @@ void flashAndClearRows(int board[ROWS][COLS], int* score, struct piece next[2], 
                 board[r][j] = (k % 2 == 0) ? 0 : 1;
         }
         copyBoard(board, temp);
-        clear_screen();
+        resetCursor();
+        //clear_screen();
         placeShape(temp, next[0].s, 0, 0); // just pass current board
         printBoardWithNext(temp, next, *holdPiece, *score);
         Sleep(100);
@@ -258,7 +264,8 @@ int main() {
                 posRow = 0; posCol = COLS / 2;
                 current = next[0]; next[0] = next[1]; next[1] = getRandomPiece();
                 if (checkCollision(board, current.s, posRow, posCol)) {
-                    clear_screen();
+                    resetCursor();
+                    //clear_screen();
                     copyBoard(board, temp);
                     placeShape(temp, current.s, posRow, posCol);
                     printBoardWithNext(temp, next, holdPiece, score);
@@ -271,7 +278,8 @@ int main() {
 
         copyBoard(board, temp);
         placeShape(temp, current.s, posRow, posCol);
-        clear_screen();
+        resetCursor();
+        //clear_screen();
         printBoardWithNext(temp, next, holdPiece, score);
         Sleep(30);
     }
