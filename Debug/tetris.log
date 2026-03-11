@@ -1,0 +1,4 @@
+﻿  main.c
+F:\codingHm\tetris\main.c(225,21): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+F:\codingHm\tetris\main.c(252,39): warning C4018: '>': signed/unsigned mismatch
+  tetris.vcxproj -> F:\codingHm\tetris\Debug\tetris.exe
